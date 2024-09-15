@@ -1,4 +1,4 @@
-# << 1. install docker-ce >>
+## 1. install docker-ce 
 	before installing docker you need to uninstall these packages:
 		-docker.io
 		-docker-compose
@@ -22,14 +22,14 @@
 
 ----------------------------------------------------------------------------------------------------
 
-<< 2. install docker compose >>
+## 2. install docker compose 
 	now that you have the docker repository added; install docker compose easily like this:
 		>>> sudo apt-get update
  		>>> sudo apt-get install docker-compose-plugin
 	
 ----------------------------------------------------------------------------------------------------
 
-<< 3. install php in server >>
+## 3. install php in server 
 	first: 
 		>>> apt update -y
 		>>> apt upgrade -y
@@ -48,7 +48,7 @@
 
 ----------------------------------------------------------------------------------------------------
 
-<< 4. create laravel project and its dependencies >>
+## 4. create laravel project and its dependencies 
 	go in home directory and clone the laravel projec:
 		>>> cd ~
 		>>> git clone https://github.com/laravel/laravel.git laravel-app
@@ -63,7 +63,7 @@
 	
 ----------------------------------------------------------------------------------------------------
 
-<< 5. setting up containers using docker compose >>
+## 5. setting up containers using docker compose 
 	now we will create a docker compose file(.yml) to create all three containers and their configurations and data persistings. after that contaniers are managed by docker compose. 
 	two containers are images that will be pulled (nginx, mysql)
 	one container is dockerfile witch will be built and then run to be a container and is not being pulled (php)
@@ -154,7 +154,7 @@ volumes:
 
 ----------------------------------------------------------------------------------------------------
 
-<< 6. persisting data for containers and create a new yml file >>
+## 6. persisting data for containers and create a new yml file
 	(note: you can skip step 6 if you know data persistings. the yml file in previous step is edited with data persistings)
 	
 	by data persisting in docker you can communicate between directories and files in container and host
@@ -211,7 +211,7 @@ app:
 
 ----------------------------------------------------------------------------------------------------
 
-<< 7. create a php-docker-file >>
+## 7. create a php-docker-file 
 	now we are going to create dockerfile for php. then thanks to the docker compose it will create the php-image and create php-container automatically when we run docker compose up with other containers
 	
 	go to laravel-app dir;
@@ -299,7 +299,7 @@ CMD ["php-fpm"]
 
 ----------------------------------------------------------------------------------------------------
 
-<< 8. config php >>
+## 8. config php
 	creating tha actuall directory for php config (according to data persisting in previous):
 		>>> cd ~/laravel-app
 		>>> mkdir php
@@ -310,7 +310,7 @@ post_max_size=40M
 	
 ----------------------------------------------------------------------------------------------------
 
-<< 9. config nginx >>
+## 9. config nginx
 	create dir:
 		>>> mkdir -p ~/laravel-app/nginx/conf.d
 	create file:
@@ -350,7 +350,7 @@ server {
 
 ----------------------------------------------------------------------------------------------------
 
-<< 10. config mysql and create a user for it >>
+## 10. config mysql and create a user for it 
 	create the dir:
 		>>> mkdir ~/laravel-app/mysql
 	create the file:
@@ -376,7 +376,7 @@ general_log_file = /var/lib/mysql/general.log
 
 ----------------------------------------------------------------------------------------------------
 
-11. modifying .env file in laravel
+## 11. modifying .env file in laravel
 	do :
 		>>> cp .env.example .env
 		>>> nano .env
@@ -394,7 +394,7 @@ DB_PASSWORD=your_laravel_db_password
 
 ----------------------------------------------------------------------------------------------------
 
-12. run the docker compose up finally and create containers 
+## 12. run the docker compose up finally and create containers 
 	
 	do docker compose up to create them all:
 		>>> docker compose up -d --build
