@@ -1,69 +1,80 @@
 ## 1. install docker-ce 
-
 before installing docker you need to uninstall these packages:
+
 	- docker.io
-	* docker-compose
-	+ docker-compose-v2
+	- docker-compose
+	- docker-compose-v2
 	- docker-doc
-	* podman-docker
+	- podman-docker
 uninstall these by:
+	
 	>>> for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 now do:
+
 	>>> sudo apt update
 then install some prerequisite packages to let apt use packages over https:
+
 	>>> sudo apt install apt-transport-https ca-certificates curl software-properties-common
 add docker repository to APT sources:
+
 	>>> sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 Make sure you are about to install from the Docker repo instead of the default Ubuntu repo; then you can see docker is not insatlled and is going to be installed from docker repo:
+
 	>>> apt-cache policy docker-ce
 then install docker:
+
 	>>> sudo apt install docker-ce
 check docker engine status: 
+
 	>>> sudo systemctl status docker
-
 ----------------------------------------------------------------------------------------------------
-
 ## 2. install docker compose 
-	now that you have the docker repository added; install docker compose easily like this:
-		>>> sudo apt-get update
- 		>>> sudo apt-get install docker-compose-plugin
-	
-----------------------------------------------------------------------------------------------------
+now that you have the docker repository added; install docker compose easily like this:
 
+	>>> sudo apt-get update
+ 	>>> sudo apt-get install docker-compose-plugin
+----------------------------------------------------------------------------------------------------
 ## 3. install php in server 
-	first: 
-		>>> apt update -y
-		>>> apt upgrade -y
-	install this:
-		>>> apt install software-properties-common
-	then add the repository for php:
-		>>> add-apt-repository ppa:ondrej/php
-	install php8.3:
-		>>> apt install php8.3 php8.3-cli php8.3-fpm
-	install additional PHP extensions:
-		>>> apt install php8.3-{mysql,curl,xsl,gd,common,xml,zip,xsl,soap,bcmath,mbstring,gettext}
-	check the version:
-		>>> php -v
-	uninstall any other version like:
-		>>> sudo apt purge php8.2*
+first: 
 
+	>>> apt update -y
+	>>> apt upgrade -y
+install this:
+
+	>>> apt install software-properties-common
+then add the repository for php:
+
+	>>> add-apt-repository ppa:ondrej/php
+install php8.3:
+
+	>>> apt install php8.3 php8.3-cli php8.3-fpm
+install additional PHP extensions:
+
+	>>> apt install php8.3-{mysql,curl,xsl,gd,common,xml,zip,xsl,soap,bcmath,mbstring,gettext}
+check the version:
+
+	>>> php -v
+uninstall any other version like:
+
+	>>> sudo apt purge php8.2*
 ----------------------------------------------------------------------------------------------------
-
 ## 4. create laravel project and its dependencies 
-	go in home directory and clone the laravel projec:
-		>>> cd ~
-		>>> git clone https://github.com/laravel/laravel.git laravel-app
-	now we will install the dependencies of laravel project with docker to avoid isntall composer globally. so use docker's composer image to mount the directories:
-		>>> docker run --rm -v $(pwd):/app composer install
-	this will pull the composer image(if you didnt have that locally), 
-	run that image to create the container and
-	install the composer and add the dependencies. 
-	-v and --rm flags with docker run creates an ephemeral container that will be bind-mounted to your current directory before being removed.
-	This will copy the contents of your ~/laravel-app directory to the container and also ensure that the vendor folder Composer creates inside the container is copied to your current directory.
-	note : if you had problem runnig this command then install composer globally and create a laravel project by composer manual.
-	
-----------------------------------------------------------------------------------------------------
+go in home directory and clone the laravel projec:
 
+	>>> cd ~
+	>>> git clone https://github.com/laravel/laravel.git laravel-app
+now we will install the dependencies of laravel project with docker to avoid isntall composer globally. so use docker's composer image to mount the directories:
+
+	>>> docker run --rm -v $(pwd):/app composer install
+this will pull the composer image first(if you didnt have that locally) then run that image to create the container and then install the composer and add the dependencies all in at once. 
+
+-v and --rm flags with docker run creates an ephemeral container that will be bind-mounted to your current directory before being removed.
+
+This will copy the contents of your ~/laravel-app directory to the container and also ensure that the vendor folder Composer creates inside the container is copied to your current directory.
+
+> [!NOTE]  
+> if you had problem runnig this command then install composer globally and create a laravel project by composer manual.
+----------------------------------------------------------------------------------------------------
 ## 5. setting up containers using docker compose 
 	now we will create a docker compose file(.yml) to create all three containers and their configurations and data persistings. after that contaniers are managed by docker compose. 
 	two containers are images that will be pulled (nginx, mysql)
