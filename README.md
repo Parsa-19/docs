@@ -161,18 +161,19 @@ all the network and valumes that you see in this file are related to data persis
 - PHP Service: This service definition contains the Laravel application and runs a custom Docker image which name is php-costume-image. hole project is copied in /var/www inside container(bind-mounting)  
 - Nginx Service: This service definition pulls the nginx:latest image from Docker and exposes ports 80 and 443
 - MySQL Service: This service definition pulls the mysql:8.0 image. there is also some env variables that you need to set like password. This service definition also maps port 3306 on the host to port 3306 on the container.
-
 ----------------------------------------------------------------------------------------------------
-
 ## 6. persisting data for containers and create a new yml file
-	(note: you can skip step 6 if you know data persistings. the yml file in previous step is edited with data persistings)
+> [!NOTE]  
+> you can skip step 6 if you know data persistings. the yml file in previous step is edited with data persistings
+
+by data persisting in docker you can communicate between directories and files in container and host.
+you will make use of volumes and bind mounts for persisting the database, and application and configuration files.
+
+create a folder named dbdata to store the database data during the restart of container in laravel-app dir:
 	
-	by data persisting in docker you can communicate between directories and files in container and host
-	you will make use of volumes and bind mounts for persisting the database, and application and configuration files.
-	
-	create a folder named dbdata to store the database data during the restart of container in laravel-app dir:
-		>>> mkdir ~/laravel-app/dbdata
-	add this to yml file to persist data of database:
+ 	mkdir ~/laravel-app/dbdata
+add this to yml file to persist data of database:
+```
 ...
 #MySQL Service
 db:
@@ -183,16 +184,19 @@ db:
     networks:
       - app-network
 ...
-	The named volume dbdata persists the contents of the /var/lib/mysql folder present inside the container
+```
+The named volume dbdata persists the contents of the /var/lib/mysql folder present inside the container
 	
-	also at bottom of yml file add:
+also at bottom of yml file add:
+```
 ...
 #Volumes
 volumes:
   dbdata:
     driver: local
-    
-	for nginx data persisting add:
+```
+for nginx data persisting add:
+```
 #Nginx Service
 webserver:
   ...
@@ -201,10 +205,11 @@ webserver:
      - ./nginx/conf.d/:/etc/nginx/conf.d/
   networks:
       - app-network
-      	
-      	it is two valumes one for app code and another for nginx configuration
-      	
-      	after that add php data persisting:
+```
+it is two valumes one for app code and another for nginx configuration
+
+after that add php data persisting:
+```
 #PHP Service
 app:
   ...
@@ -213,22 +218,23 @@ app:
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
   networks:
       - app-network    	
+```    
+also two valumes one for app code and another for php configuration
     
-    also two valuems one for app code and another for php configuration
-    
-    
-    note:you can see the edited yml file in previous step
-
+> [!NOTE]
+> you can see the edited yml file in previous step
 ----------------------------------------------------------------------------------------------------
-
 ## 7. create a php-docker-file 
-	now we are going to create dockerfile for php. then thanks to the docker compose it will create the php-image and create php-container automatically when we run docker compose up with other containers
+now we are going to create dockerfile for php. then thanks to the docker compose it will create the php-image and create php-container automatically when we run docker compose up with other containers
+
+go to laravel-app dir;
 	
-	go to laravel-app dir;
-		>>> cd ~/laravel-app
-	create the file:
-		>>> nano dockerfile
-	add this to it:
+	cd ~/laravel-app
+create the file:
+	
+ 	nano dockerfile
+add this to it:
+```
 FROM php:8.3-fpm
 
 # Set Environment Variables
@@ -304,22 +310,22 @@ USER www
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
+```
 
-	thats all we need for php container to have or run.
-
+that's all we need for php container to have or run.
 ----------------------------------------------------------------------------------------------------
-
 ## 8. config php
-	creating tha actuall directory for php config (according to data persisting in previous):
-		>>> cd ~/laravel-app
-		>>> mkdir php
-		>>> nano php/local.ini
-	add this to it:
+creating tha actuall directory for php config (according to data persisting in previous):
+		
+  	cd ~/laravel-app
+	mkdir php
+	nano php/local.ini	
+add this to it:
+```
 upload_max_filesize=40M
 post_max_size=40M
-	
+```	
 ----------------------------------------------------------------------------------------------------
-
 ## 9. config nginx
 	create dir:
 		>>> mkdir -p ~/laravel-app/nginx/conf.d
