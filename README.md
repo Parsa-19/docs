@@ -1,4 +1,4 @@
-<< 1. install docker-ce >>
+#<< 1. install docker-ce >>
 	before installing docker you need to uninstall these packages:
 		-docker.io
 		-docker-compose
