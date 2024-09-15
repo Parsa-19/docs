@@ -1,26 +1,25 @@
 ## 1. install docker-ce 
 
 before installing docker you need to uninstall these packages:
-		-docker.io
-		-docker-compose
-		-docker-compose-v2
-		-docker-doc
-		-podman-docker
-	uninstall these by:
-		>>> for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
-	now do:
-		>>> sudo apt update
-	then install some prerequisite packages to let apt use packages over https:
-		>>> sudo apt install apt-transport-https ca-certificates curl software-properties-common
-	add docker repository to APT sources:
-		>>> sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-	Make sure you are about to install from the Docker repo instead of the default Ubuntu repo; then you can see docker is not insatlled and is going to be installed from docker repo:
-		>>> apt-cache policy docker-ce
-	then install docker:
-		>>> sudo apt install docker-ce
-	check docker engine status: 
-		>>> sudo systemctl status docker
-
+	- docker.io
+	* docker-compose
+	+ docker-compose-v2
+	- docker-doc
+	* podman-docker
+uninstall these by:
+	>>> for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+now do:
+	>>> sudo apt update
+then install some prerequisite packages to let apt use packages over https:
+	>>> sudo apt install apt-transport-https ca-certificates curl software-properties-common
+add docker repository to APT sources:
+	>>> sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+Make sure you are about to install from the Docker repo instead of the default Ubuntu repo; then you can see docker is not insatlled and is going to be installed from docker repo:
+	>>> apt-cache policy docker-ce
+then install docker:
+	>>> sudo apt install docker-ce
+check docker engine status: 
+	>>> sudo systemctl status docker
 
 ----------------------------------------------------------------------------------------------------
 
