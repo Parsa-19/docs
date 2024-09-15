@@ -313,10 +313,11 @@ CMD ["php-fpm"]
 ```
 
 that's all we need for php container to have or run.
+
 ----------------------------------------------------------------------------------------------------
 ## 8. config php
 creating tha actuall directory for php config (according to data persisting in previous):
-		
+
   	cd ~/laravel-app
 	mkdir php
 	nano php/local.ini	
@@ -327,11 +328,14 @@ post_max_size=40M
 ```	
 ----------------------------------------------------------------------------------------------------
 ## 9. config nginx
-	create dir:
-		>>> mkdir -p ~/laravel-app/nginx/conf.d
-	create file:
-		>>> nano ~/laravel-app/nginx/conf.d/app.conf
-	add this to it:
+create dir:
+	
+ 	mkdir -p ~/laravel-app/nginx/conf.d
+create file:
+	
+ 	nano ~/laravel-app/nginx/conf.d/app.conf
+add this to it:
+```
 server {
     listen 80;
     listen [::]:80;
@@ -363,65 +367,74 @@ server {
         root /var/www/certbot;
     }
 }
-
+```
 ----------------------------------------------------------------------------------------------------
-
 ## 10. config mysql and create a user for it 
-	create the dir:
-		>>> mkdir ~/laravel-app/mysql
-	create the file:
-		>>> nano ~/laravel-app/mysql/my.cnf
-	add this to it:
+create the dir:
+	
+ 	mkdir ~/laravel-app/mysql
+create the file:
+	
+ 	nano ~/laravel-app/mysql/my.cnf
+add this to it:
+```
 [mysqld]
 general_log = 1
 general_log_file = /var/lib/mysql/general.log
+```	
+then you need to create a user for mysql. to do that execute an interactive bash shell on the db container:
 	
-	then you need to create a user for mysql.
-	to do that execute an interactive bash shell on the db container:
-		>>> docker-compose exec db bash
-	inside container log in to root account:
-		(db)>>> mysql -u root -p
-	enter the passwrod you had written in yml file and 
+ 	docker-compose exec db bash
+inside container log in to root account:
 	
-	see if you have laravel database that you had defined in yml file by:
-		(db)>>> show databases;
-	create the user:
-		(db)>>> CREATE USER 'yourusername '@'localhost' IDENTIFIED BY 'yourpassword';
-		(db)>>> GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'yourusername'@'localhost' WITH GRANT OPTION;
-		(db)>>> FLUSH PRIVILEGES;
+ 	db$ mysql -u root -p
+enter the passwrod you had written in yml file and hit enter. you'll log in.
 
+see if you have laravel database that you had defined in yml file by:
+
+	db$ show databases;
+create the user:
+		
+  	db$ CREATE USER 'yourusername '@'localhost' IDENTIFIED BY 'yourpassword';
+	db$ GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'yourusername'@'localhost' WITH GRANT OPTION;
+	db$ FLUSH PRIVILEGES;
 ----------------------------------------------------------------------------------------------------
-
 ## 11. modifying .env file in laravel
-	do :
-		>>> cp .env.example .env
-		>>> nano .env
-	under "DB_CONNECTION" edit file like this:
+run:
+
+	cp .env.example .env
+	nano .env
+under "DB_CONNECTION" edit file like this:
+```
+...
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=laraveluser
 DB_PASSWORD=your_laravel_db_password
-	
-	"DB_DATABASE" is the name if your database (which in previous we saw the database)
-	assign "DB_USERNAME" by your username
-	assign "DB_PASSWORD" by your db password
+...
+```
+"DB_DATABASE" is the name of your database (which in previous we saw its name)  
+assign "DB_USERNAME" by your username  
+assign "DB_PASSWORD" by your db password  
+done
 
 ----------------------------------------------------------------------------------------------------
-
 ## 12. run the docker compose up finally and create containers 
+run docker compose up to create them all:
 	
-	do docker compose up to create them all:
-		>>> docker compose up -d --build
-	check out containers:
-		>>> docker ps
-	just do these:
-		>>> docker compose exec app php artisan key:generate
-		>>> docker compose exec app php artisan config:cache
+	docker compose up -d --build
+check out containers:
+	
+ 	docker ps
+just run these commands then:
+	
+ 	docker compose exec app php artisan key:generate
+	docker compose exec app php artisan config:cache
 
-
-now if i was not wrong in any of those steps you should be able to see the laravel serve page by typing your ip/domain (whatever you had set in nginx config) in browser without ssl.
+   
+> ### now if i was not wrong in any of those steps you should be able to see the laravel serve page by typing your ip/domain (whatever you had set in nginx config) in browser without ssl and get the preview of it.
 
 
 
