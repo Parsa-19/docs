@@ -1,5 +1,6 @@
 ## 1. install docker-ce 
-	before installing docker you need to uninstall these packages:
+
+before installing docker you need to uninstall these packages:
 		-docker.io
 		-docker-compose
 		-docker-compose-v2
@@ -19,6 +20,7 @@
 		>>> sudo apt install docker-ce
 	check docker engine status: 
 		>>> sudo systemctl status docker
+
 
 ----------------------------------------------------------------------------------------------------
 
