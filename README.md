@@ -8,84 +8,84 @@ before installing docker you need to uninstall these packages:
 	- podman-docker
 uninstall these by:
 	
-	>>> for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+	for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 now do:
 
-	>>> sudo apt update
+	sudo apt update
 then install some prerequisite packages to let apt use packages over https:
 
-	>>> sudo apt install apt-transport-https ca-certificates curl software-properties-common
+	sudo apt install apt-transport-https ca-certificates curl software-properties-common
 add docker repository to APT sources:
 
-	>>> sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 Make sure you are about to install from the Docker repo instead of the default Ubuntu repo; then you can see docker is not insatlled and is going to be installed from docker repo:
 
-	>>> apt-cache policy docker-ce
+	apt-cache policy docker-ce
 then install docker:
 
-	>>> sudo apt install docker-ce
+	sudo apt install docker-ce
 check docker engine status: 
 
-	>>> sudo systemctl status docker
+	sudo systemctl status docker
 ----------------------------------------------------------------------------------------------------
 ## 2. install docker compose 
 now that you have the docker repository added; install docker compose easily like this:
 
-	>>> sudo apt-get update
- 	>>> sudo apt-get install docker-compose-plugin
+	sudo apt-get update
+ 	sudo apt-get install docker-compose-plugin
 ----------------------------------------------------------------------------------------------------
 ## 3. install php in server 
 first: 
 
-	>>> apt update -y
-	>>> apt upgrade -y
+	apt update -y
+	apt upgrade -y
 install this:
 
-	>>> apt install software-properties-common
+	apt install software-properties-common
 then add the repository for php:
 
-	>>> add-apt-repository ppa:ondrej/php
+	add-apt-repository ppa:ondrej/php
 install php8.3:
 
-	>>> apt install php8.3 php8.3-cli php8.3-fpm
+	apt install php8.3 php8.3-cli php8.3-fpm
 install additional PHP extensions:
 
-	>>> apt install php8.3-{mysql,curl,xsl,gd,common,xml,zip,xsl,soap,bcmath,mbstring,gettext}
+	apt install php8.3-{mysql,curl,xsl,gd,common,xml,zip,xsl,soap,bcmath,mbstring,gettext}
 check the version:
 
-	>>> php -v
+	php -v
 uninstall any other version like:
 
-	>>> sudo apt purge php8.2*
+	sudo apt purge php8.2*
 ----------------------------------------------------------------------------------------------------
 ## 4. create laravel project and its dependencies 
-go in home directory and clone the laravel projec:
+go in home directory and clone the laravel project:
 
-	>>> cd ~
-	>>> git clone https://github.com/laravel/laravel.git laravel-app
+	cd ~
+	git clone https://github.com/laravel/laravel.git laravel-app
 now we will install the dependencies of laravel project with docker to avoid isntall composer globally. so use docker's composer image to mount the directories:
 
-	>>> docker run --rm -v $(pwd):/app composer install
-this will pull the composer image first(if you didnt have that locally) then run that image to create the container and then install the composer and add the dependencies all in at once. 
-
--v and --rm flags with docker run creates an ephemeral container that will be bind-mounted to your current directory before being removed.
-
+	docker run --rm -v $(pwd):/app composer install
+this will pull the composer image first(if you didnt have the image locally) then run that image to create the container.  
+-v and --rm flags with docker run creates an ephemeral container that will be bind-mounted to your current directory before being removed.  
 This will copy the contents of your ~/laravel-app directory to the container and also ensure that the vendor folder Composer creates inside the container is copied to your current directory.
 
 > [!NOTE]  
-> if you had problem runnig this command then install composer globally and create a laravel project by composer manual.
+> if you had problem runnig this command then install composer globally and create a laravel project by composer manually.
 ----------------------------------------------------------------------------------------------------
 ## 5. setting up containers using docker compose 
-	now we will create a docker compose file(.yml) to create all three containers and their configurations and data persistings. after that contaniers are managed by docker compose. 
-	two containers are images that will be pulled (nginx, mysql)
-	one container is dockerfile witch will be built and then run to be a container and is not being pulled (php)
+now we will create a docker compose file(.yml) to create all three containers and their configurations and data persistings. after that contaniers are managed by docker compose.  
+two containers are images that will be pulled (nginx, mysql),  
+one container is dockerfile witch will be built and then run to be a container and is not being pulled (php)
+
+go to the project dir:
 	
-	go to the project dir:
-		>>> cd ~/laravel-app
-	create a yml file:
-		>>> nano docker-compose.yml
-	add this to it:
-######## start yml ########
+ 	cd ~/laravel-app
+create a yml file:
+
+	nano docker-compose.yml
+add this to it:
+```
 services:
 
   #PHP Service:
@@ -152,17 +152,15 @@ networks:
 volumes:
   dbdata:
     driver: local
-######## end yml ######## 
+```
 	
-	this will create all three containers.
-	in app block we had addressed the dockerfile witch we will create later.
-	all the network and valumes that you see in this file are related to data persistings and will be fixed later
-	 
-	-PHP Service: This service definition contains the Laravel application and runs a custom Docker image witch name is php-costume-image.
-	hole project is copied in /var/www inside container(bind-mounting)
-	-Nginx Service: This service definition pulls the nginx:latest image from Docker and exposes ports 80 and 443
-	-MySQL Service: This service definition pulls the mysql:8.0 image. there is also some env variables that you need to set like password. 
-	This service definition also maps port 3306 on the host to port 3306 on the container.
+this will create all three containers.  
+in app block we had addressed the dockerfile witch we will create later.  
+all the network and valumes that you see in this file are related to data persistings and will be fixed later
+	
+- PHP Service: This service definition contains the Laravel application and runs a custom Docker image which name is php-costume-image. hole project is copied in /var/www inside container(bind-mounting)  
+- Nginx Service: This service definition pulls the nginx:latest image from Docker and exposes ports 80 and 443
+- MySQL Service: This service definition pulls the mysql:8.0 image. there is also some env variables that you need to set like password. This service definition also maps port 3306 on the host to port 3306 on the container.
 
 ----------------------------------------------------------------------------------------------------
 
