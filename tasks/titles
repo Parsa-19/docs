@@ -1,0 +1,13 @@
+install nginx
+configure ufw
+fix nginx directories
+start creating django project by https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu
+
+create user and database in postgres
+create a venv for django project
+install django code on venv and initial setup
+set up jango serve page by gunicorn and postgresql
+
+undrestanding of pep 3333 and WSGI concept
+use uwsgi with nginx in django
+ 
