@@ -4,9 +4,11 @@
 
 leaving a blank line seprates paragraphs
 
-**this is a Bold text surouned by two stars in right and left**
+use \<br> to <br>
+go to the next line <br>
+on same paragraph.
 
-__this is a Bold text surouned by two underscore in right and left__
+**this is a Bold TEXT**
 
 > text that is a quote
 
@@ -26,8 +28,6 @@ this is an unordered list:
 * two
 + three
 - four
-* five
-+ six
 
 this is an ordered list : 
 1. one
@@ -54,5 +54,5 @@ nested lists:
 > [!WARNING]
 > this is a warning i wanted to show you
 
-> [!CAUSION]
+> [!CAUTION]
 > this is a causion i wanted to show you
