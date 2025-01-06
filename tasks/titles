@@ -11,3 +11,15 @@ set up jango serve page by gunicorn and postgresql
 undrestanding of pep 3333 and WSGI concept
 use uwsgi with nginx in django
  
+
+
+
+-WSGI : its a software specification that describes how python app and webservers communicate together (explained in PEP 3333)
+note for WSGI : The term specification is used because WSGI is not a program, library, or framework. Instead, it is a set of rules and guidelines that developers can implement in their servers or
+applications to ensure interoperability.
+
+-uWSGI : a WSGI implementation. that's a webserver which works based on WSGI and uses a callable python object to run python application
+-uwsgi : a protocol which uWSGI uses to talk with nginx or any other webserver that sits on top of uWSGI
+
+unix sockets
+nginx configurations 
