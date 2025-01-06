@@ -53,5 +53,5 @@ you can do these basics with all these commands
 
 ## nginx configuration structure
 
-##n ginx logs
+## ginx logs
 
