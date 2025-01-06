@@ -10,3 +10,5 @@ this will print out the ports which are activly listening right now.<br>
 + numeric 
 - program
 
+if you dont have it install: <br>
+`sudo apt install net-tools`
