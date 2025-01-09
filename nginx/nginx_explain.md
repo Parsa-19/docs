@@ -9,10 +9,10 @@ nginx is used as:
 
 the basic artichcture of nginx is consists of two components: <br>
 **master process** & **worker processes** <br>
-master process: read the configurations and maintain worker processes
-worker process: do the actual processing of requests
+-master process: read the configurations and maintain worker processes. <br>
+-worker process: do the actual processing of requests.
 
-the way nginx and its modules work are determind on `/etc/nginx/nginx.conf` file
+the way nginx and its modules work are determind on `/etc/nginx/nginx.conf` file.
 
 ## add nginx package-repo and installing nginx on ubuntu
 
