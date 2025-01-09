@@ -25,7 +25,7 @@ systemctls stop nginx
 systemctl restart nginx
 systemctl reload nginx
 systemctl enable nginx
-systemctl disable
+systemctl disable nginx
 ```
 reload just reloads the configuration while restart would restart the whole thing <br>
 enable and disable are used to mange if nginx run automatically durring boot time or not.
