@@ -27,8 +27,8 @@ systemctl reload nginx
 systemctl enable nginx
 systemctl disable nginx
 ```
-reload just reloads the configuration while restart would restart the whole thing <br>
-enable and disable are used to mange if nginx run automatically durring boot time or not.
+reload just reloads the configuration while restart would restart the whole thing. <br>
+enable and disable are used to manage nginx to be run automatically durring boot time or not.
 
 ### use nginx command & signals
 ```
@@ -39,7 +39,7 @@ nginx -s reload
 nginx -t
 ```
 stop will shut down nginx imidietly but quit wait for worker process to finish the rquests and then shut down it. <br>
--t will check if the configurations to make sure the its syntax and grammer are ok.<br>
+-t will check if the configurations are ok or not. <br>
 or do it like:
 ```
 sudo /etc/init.d/nginx start
@@ -49,7 +49,7 @@ sudo /etc/init.d/nginx reload
 ```
 
 <br>
-you can do these basics with all these commands
+you can do the basics with all these commands.
 
 ## nginx configuration structure
 
