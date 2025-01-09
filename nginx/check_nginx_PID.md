@@ -3,6 +3,8 @@
 you can find your process PID by one of these comands: <br>
 ```
 netstat -ntlp
+
 ps ax | grep nginx
+
 cat /var/run/nginx.pid 
 ```
