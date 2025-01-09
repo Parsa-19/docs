@@ -2,7 +2,7 @@
 this is a high performance web server which handles http requests. <br>
 
 nginx is used as:
-- mainly web server which response realy fast to http requests
+- mainly web server which response really fast to http requests
 * reserve proxy 
 + used with slower upstream servers such as Unicorn or uWGI
 - load-blancing : distribute the traffic in disired way
