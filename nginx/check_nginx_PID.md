@@ -1,6 +1,6 @@
 # find master/worker process PID on nginx:
 
-you can find your process PID by these comands: <br>
+you can find your process PID by one of these comands: <br>
 ```
 netstat -ntlp
 ps ax | grep nginx
