@@ -1,0 +1,24 @@
+structure:
+    # comment
+    commands + arguments
+
+commands:
+    FROM
+    RUN
+    CMD
+    ENTRYPOINT
+    ADD
+    ENV
+    WORKDIR
+    EXPOSE
+    MAINTAINER
+    USER
+    VOLUME
+
+definitions + examples:
+    FROM : defines base image to use to start the build process
+    FROM ubuntu
+
+    
+
+

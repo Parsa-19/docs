@@ -1,0 +1,18 @@
+>>> apt update && apt -y upgrade 
+
+adds the docker repo and installs the docker
+>>> courl -fsSl https://get.docker.com/ | sh
+
+>>> sudo systemctl start docker
+
+run the container and enter the container (pulls the image if it was not found locally)
+>>> docker run -it ubuntu
+
+see the all the containers
+>>> docker ps -a 
+
+see currently running containers
+>>> docker ps
+
+
+

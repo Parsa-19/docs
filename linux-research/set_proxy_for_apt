@@ -1,0 +1,11 @@
+you need to add your proxy lines to apt.conf in this direcotry:
+	/etc/apt/apt.conf
+create that if there is not apt.conf 
+	sudo nano /etc/apt/apt.conf
+
+add these
+	Acquire::http::Proxy "http://USERNAME:PASSWORD@SERVER:PORT";
+	Acquire::https::Proxy "https://USERNAME:PASSWORD@SERVER:PORT";
+	Acquire:HTTP::PROXY "http://USERNAME:PASSWORD@SERVER:PORT";
+	Acquire::HTTPS::PROXY "https://USERNAME:PASSWORD@SERVER:PORT";
+where in double qoutations there is url of your own proxy and port 

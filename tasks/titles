@@ -22,4 +22,5 @@ applications to ensure interoperability.
 -uwsgi : a protocol which uWSGI uses to talk with nginx or any other webserver that sits on top of uWSGI
 
 unix sockets
+creating system service and sockets
 nginx configurations 

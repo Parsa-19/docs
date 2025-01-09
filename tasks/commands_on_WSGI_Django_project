@@ -1,0 +1,21 @@
+enter your project dir and activate env then run:
+
+
+
+
+>>> uwsgi --http :8000 --wsgi-file test.py
+the web client <-> uWSGI <-> Python
+
+
+>>> python manage.py runserver 0.0.0.0:8000
+the web client <-> Django_light_server <-> python
+
+
+>>> uwsgi --http :8000 --module mysite.wsgi
+the web client <-> uWSGI <-> Django_app
+
+
+>>> systemctl start nginx # on port 8000
+>>> uwsgi --http :8001 --module mysite.wsgi
+the web client <-> nginx <-> uWSGI <-> Django_app
+
