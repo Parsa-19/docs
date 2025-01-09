@@ -5,5 +5,4 @@ run this: <br>
 then you can find it in front of the **Description** line
 
 also use of: <br>
-`hostnamectl` and `cat /etc/*ease`
-
+`hostnamectl` and `cat /etc/*ease` are possible.
