@@ -1,0 +1,28 @@
+create a base dir:
+	>>> mkdir nginx-demo
+
+pull nginx by tag alpine:
+	>>> docker pull nginx
+
+create Dockerfile and put this in it:
+	>>> nano Dockerfile
+~ FROM nginx:alpine
+~ COPY index.html /usr/share/nginx/html
+~ EXPOSE 80
+~ CMD ["nginx", "-g", "daemon off;"]
+
+create index.html and put this in it:
+	>>> nano index.html
+<html>
+	<h1>HELLO FROM NGINX ALPINE CONTAINER<h1>
+</html>
+
+build the Dockerfile to image:
+	>>> docker build -t nginx-costume-image ./
+
+run the created image to container (in background):
+	>>> docker run -d --name nginx-container1 -p 80:80 nginx-costume-image
+
+see the container is running with no problem:
+	>>> docker ps
+
