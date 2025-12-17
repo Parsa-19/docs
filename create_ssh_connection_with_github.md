@@ -23,3 +23,9 @@ paste the public key here and save it <br>
 
 finally authenticate the connection <br>
 `ssh -T git@github.com`
+
+now you need to set your repo url with ssh address <br>
+`git remote add origin git@github.com:user/repo.git`
+
+<br>
+then you're able to push and pull using ssh connection
