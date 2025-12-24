@@ -28,17 +28,17 @@ generating ssh key pairs in client <br>
 `[client]# ssh-keygen`
 
 copy pulbic key "~/.ssh/id_rsa.pub" to server using one of these methods: <br>
-1. by 'ssh-copy-id' (you need password based auth): <br>
+1. by 'ssh-copy-id' (you need password based auth):
 `[client]# ssh-copy-id username@remote_host`
 
-2. copy it using ssh itself (you need password based auth): <br>
+2. copy it using ssh itself (you need password based auth):
 `[client]# cat ~/.ssh/id_rsa.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"`
 
-3. copy manually, ensure the file and dir exists, has permissions and .ssh dir has user:user ownership: <br>
-`[remote-vm]# mkdir -p ~/.ssh` <br>
-`[remote-vm]# echo public_key_string >> ~/.ssh/authorized_keys` <br>
-`[remote-vm]# chmod -R go= ~/.ssh` <br>
-`[remote-vm]# chown -R parsa:parsa ~/.ssh` <br>
+3. copy manually, ensure the file and dir exists, has permissions and .ssh dir has user:user ownership:
+`[remote-vm]# mkdir -p ~/.ssh`
+`[remote-vm]# echo public_key_string >> ~/.ssh/authorized_keys`
+`[remote-vm]# chmod -R go= ~/.ssh`
+`[remote-vm]# chown -R parsa:parsa ~/.ssh`
 
 test the connection: <br>
 `[client]# ssh username@remote_host`
@@ -46,12 +46,12 @@ test the connection: <br>
 then just disable password auth on server: <br>
 `[remote-vm]# sudo nano /etc/ssh/sshd_config`
 
-add this line to config file: <br>
+add this line to config file: br
 ```
 ...
 PasswordAuthentication no
 ...
 ```
 
-restart ssh then to read config file: <br>
+restart ssh then to read config file:
 `[remote-vm]# sudo systemctl restart sshd`
