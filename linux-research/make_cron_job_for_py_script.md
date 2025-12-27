@@ -60,4 +60,4 @@ add this line:<br>
 it'll run the job every minute so you test the py output quickly (change it later).<br>
 it redirects the standard output to the file (whenever pyhon prints) and also redirects the standard input to that file so you can always check it.
 save and exit.<br>
-check out the file to see if it effects evert minute.
+check out the file to see if it effects every minute.
