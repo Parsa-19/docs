@@ -29,3 +29,12 @@ sudo apt update
 
 install docker then:<br>
 `sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin`
+
+> [!NOTE]
+> to work with docker you need both **docker-client** and **docker-server**. what you installed is Docker Community Edition (docker-ce) which beside the docker client it also set up docker server too. so you dont need to set it up sepratly. you just need to ensure the docker server(dockerd) is running.
+
+make sure docker service starts on every boot:<br>
+`sudo systemctl enable docker`
+
+start the service:<br>
+`sudo systemctl start docker`
