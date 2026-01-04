@@ -69,3 +69,14 @@ check the connection by curl: <br>
 > [!NOTE]
 > do not set system proxy. just run `export ALL_PROXY=socks5://127.0.0.1:10808` to export the proxy for current session every time you needed and `unset ALL_PROXY` when ever you didnt need it.
 <br>
+
+### Config APT to use socks5 proxy
+edit and add proxies in apt config:<br>
+`sudo nano /etc/apt/apt.conf.d/99socks5-proxy`<br>
+add these:<br>
+```
+Acquire::http::Proxy "socks5h://127.0.0.1:10808";
+Acquire::https::Proxy "socks5h://127.0.0.1:10808";
+```
+test it:<br>
+`sudo apt update`
