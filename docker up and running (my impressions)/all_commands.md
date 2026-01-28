@@ -29,12 +29,17 @@ docker image push ${<mydockerhubuser>}/docker-node-hello:latest
 
 docker image pull ${<mydockerhubuser>}/docker-node-hello:latest
 
-docker log <containerName>
+docker logs <containerName>
 
 docker container export ddc3f61f311b -o web-app.tar
 
-docker inspect imageName:latest
+docker container run --rm -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh
 
+docker image tag IMAGE-NAME NEW-TAG(NAME)
+
+docker image history IMAGE-TAG
+
+time docker image build --no-cache .
 ```
 
 ### looking into the container’s filesystem while the container doesnt contain a shell or SSH.
@@ -60,3 +65,8 @@ ls
 
 # you'll see the filesystem
 ```
+if you dont have root access you can use a debian container and get to the filesystem from there: <br>
+`docker container run --rm -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh`<br>
+then:<br>
+`cd /var/lib/docker/rootfs/overlayfs/CONTAINER_ID/`
+`ls`
