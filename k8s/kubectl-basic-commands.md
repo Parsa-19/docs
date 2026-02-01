@@ -5,7 +5,7 @@ kubectl get all
 kubectl get pod
 kubectl get deployment
 kubectl get service
-ubectl get node
+kubectl get node
 kubectl get configmap
 kubectl get secret
 kubectl get node -o wide
