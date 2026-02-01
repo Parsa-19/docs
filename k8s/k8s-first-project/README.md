@@ -23,3 +23,11 @@ http://VM_IP:8080
 minikube ip
 curl MINIKUBE_NODE_IP:30100
 ```
+webapp CONTAINER_PORT(inside the pod) = 3000<br>
+webapp SERVICE_TARGET_PORT(point to container port) = 3000<br>
+webapp SERVCIE_PORT(could be anything) = 3000<br>
+webapp nodePort(port assigned to the node with range 30000/32767) = 30100<br>
+
+mongo CONTAINER_PORT(inside the pod) = 27017<br>
+mongo SERVICE_TARGET_PORT(point to container port) = 27017<br>
+mongo SERVCIE_PORT(could be anything) = 27017<br>
