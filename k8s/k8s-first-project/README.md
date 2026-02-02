@@ -19,9 +19,9 @@ kubectl port-forward pod/WEBAPP_POD_NAME 8080:CONTAINER_PORT --address 0.0.0.0
 # now you can access the app on VM IP on port 8080 on windows
 http://VM_IP:8080
 
-# you can test the applicaton with minikube node ip with the nodePort configured inside the VM (30100 is the nodePort configured in this porject)
+# you can test the applicaton with minikube node ip with nodePort configured inside the VM (30100 is the nodePort configured in this porject)
 minikube ip
-curl MINIKUBE_NODE_IP:30100
+curl MINIKUBE_IP:30100
 ```
 webapp CONTAINER_PORT(inside the pod) = 3000<br>
 webapp SERVICE_TARGET_PORT(point to container port) = 3000<br>
