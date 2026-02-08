@@ -1,0 +1,11 @@
+secretGenerator:
+- name: mysql-secret
+  literals:
+  - mysql-password=p123
+configMapGenerator:
+- name: mysql-config
+  literals:
+  - mysql-url=mysql-service
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml
