@@ -1,7 +1,8 @@
 # goal
 to bring up a wordpress container and connect it to mysql container (deployed in k8s).
 # how to run
-### in a ubuntu vm
+### in your ubuntu vm
+with minikube, kubectl, docker installed then run these:
 ```
 kubectl apply -k ./
 kubectl get pod # to get the name of wordpress pod
