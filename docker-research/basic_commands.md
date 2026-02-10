@@ -34,3 +34,12 @@
 `docker compose`
 `docker swarm`
 `docker service`
+
+`docker volume create my-data`
+`docker run -d -v mysql-data:/var/lib/mysql mysql:8.0`
+`docker volume ls`
+`docker volume inspect mysql-data`
+`docker volume rm mysql-data`
+`docker volume prune`
+`docker system prune -a --volume`
+
