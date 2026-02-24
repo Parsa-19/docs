@@ -1,0 +1,25 @@
+you need to install container runtime, kubeadm, kubectl, kubelet on all the nodes to begin setting up a cluster
+
+## choose a container runtime
+- containerd 
+- cri-o
+- docker-engine
+install a desired container runtime on all the nodes.
+### install docker engine on ubuntu manually
+go to:<br>
+https://download.docker.com/linux/ubuntu/dists//pool/stable/amd64/
+then proceed by the information of your case: CODE_NAME > pool > stable > architecture of your cpu <br>
+and download these packages:
+- containerd.io_<version>_<arch>.deb
+- docker-ce_<version>_<arch>.deb
+- docker-ce-cli_<version>_<arch>.deb
+- docker-buildx-plugin_<version>_<arch>.deb
+- docker-compose-plugin_<version>_<arch>.deb
+
+move them all in a dir and install them:<br>
+`sudo dpkg -i *.deb`
+
+test it:<br>
+`sudo systemctl status docker`
+
+## install kubeadm

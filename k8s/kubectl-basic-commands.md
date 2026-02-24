@@ -12,6 +12,9 @@ kubectl get node
 kubectl get node -o wide
 kubectl get pod -o wide # get pod's ip addresses
 
+kubectl -n kube-system get pods -o wide
+kubectl get pods --all-namespaces
+
 kubectl create deployment [DEPLOYMENT_NAME] [IMAGE:version]
 kubectl delete deployment [DEPLOYMENT_NAME]
 
