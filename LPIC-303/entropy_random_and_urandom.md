@@ -11,5 +11,11 @@ Both /dev/random and /dev/urnadom provides cryptographically secure random outpu
 More specific they provide an interface to kernel random number generator.
 
 - /dev/random : a block device whcih gives you a high quiality secure random data only when there is enough amount of random input available from entropy pool and if not it blocks all reads to /dev/random till the entropy pool is filled with new random data or enough randomness which then ensures the unpredictability and randomness of data.
+    * directly pulling from entropy (true random numbers)
+    * blocks when entropy is low
+    * limitaion (cause slow down and freeze in applicaton)
 
 - /dev/urandom : urandom(unlimited random) also provides good random data from entropy pool same as the /dev/random. but the only difference here is if there is an insufficient amount of random inputs(entropy pool is empty), it doesn't block reading to /dev/urandom, instead it takes the data from random number generator and generate data with algorithms like MD5, SHA to provide you the needed random data at the time.
+    * uses pseudo-random number generator (PRNG) when entropy is low
+    * does not block making it faster than /dev/random
+    * mostly used and secure enough for applications though its not /dev/random
