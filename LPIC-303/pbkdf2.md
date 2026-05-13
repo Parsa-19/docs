@@ -6,7 +6,7 @@ Key Drivation Function is a method and/or cryptographic algorithm in which stren
 Key drivation function targets on truning low-entropy inputs like human-readable passwords to high-entropy cryptographic keys.
 
 PBKDFs2 stands on Password-Based-Key-Driven-Functions-2 that its purpose is strengthening hashes with salts and iterations.<br>
-Its is now a known standard defined in RFC 2898.<br>
+It is now a known standard defined in [RFC 2898](https://www.rfc-editor.org/info/rfc2898).<br>
 It enhances the security of hashes and passwords in two ways:
 
 - salting: with salt the algorithm everytime adds a random value to the password before hashing it and prevents the hash to be always the same sync the salt everytime changes.
