@@ -4,7 +4,7 @@ shows all listening ports with their porccess PID: <br>
 - -u : UDP
 - -n : numeric form instead of resolved names (displays IP)
 - -l : listening ports
-- -m :  Show the PID and name of the listener’s process.( this information is shown only if you run as root or sudo)
+- -p :  Show the PID and name of the listener’s process.( this information is shown only if you run as root or sudo)
 
 newer and similar command that functions the same:<br>
 `ss -tunlp`
