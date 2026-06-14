@@ -4,9 +4,9 @@
 > source: https://www.youtube.com/watch?v=s_o8dwzRlu4
 
 - put this projects root dir in your linux vm.
-- adjust the vm to be brigded on network.
-- stop the firewall or add its rule on the ports.
-- you need to run theses commands in order to be able access the application through your windows host browser
+- adjust the vm to be briged on network.
+- stop the firewall or add related rules to allow the ports.
+- you need to run these commands in order to be able access the application through your windows host browser
 ```
 minikube start
 kubectl apply -f mongo-config.yaml
