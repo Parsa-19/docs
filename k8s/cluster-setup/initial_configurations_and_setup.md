@@ -10,18 +10,19 @@ cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.ipv4.ip_forward = 1
 EOF
 ```
-
 <br>
-apply immidiatly without reboot: <br>
+apply immidiatly without reboot:
+
 `sudo sysctl --system`
 
 <br>
-verify: <br>
+verify:
+
 `sysctl net.ipv4.ip_forward`
 
 ## cgroups configuration
 
-cgroups are used to constrain resources that are allocated to processes. Both kubelet and and container runtime needs to access system cgroups to enforce resource management for pods and containers. They also have to use the same cgroup driver to worl properly.<br>
+cgroups are used to constrain resources that are allocated to processes. Both kubelet and container runtime needs to access system cgroups to enforce resource management for pods and containers. They also have to use the same cgroup driver to work properly.<br>
 there are two cgroup drivers:
 - cgroupfs 
 - systemd
