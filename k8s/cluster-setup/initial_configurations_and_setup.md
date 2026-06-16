@@ -1,6 +1,5 @@
 # my general idea of the whole thing
-> source https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd
-> source https://github.com/containerd/containerd/blob/main/docs/getting-started.md
+what I went through when decided I need to know how to create cluster:
 
 
 ## network configuratoin 
@@ -34,6 +33,29 @@ the default for kubelet but it is not recommended when systemd is the init syste
 in systemd the init process generates and consumes the root cgroup and act as cgroup manager.
 
 you need to make sure that both kubelet and container runtimes are using the same cgroup driver.
+
+
+## install kubectl
+download the latest binary release with:
+```
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+```
+
+copy the downloaded file with owner root (-o) and group root (-g) and permission set of the file with 755(-m) to `/usr/local/bin` by this command:
+```
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+
+if do not have root access install it in `~/.local/bin`:
+```
+mkdir -p ~/.local/bin
+mv ./kubectl ~/.local/bin/kubectl
+chmod +x ~/.local/bin/kubectl
+# then add the location to path
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+
 
 
 ## install Container Runtime by downloading binary packages
@@ -98,3 +120,12 @@ sudo systemctl restart containerd
 
 > [NOTICE]
 > When using kubeadm, manually configure the cgroup driver for kubelet.
+
+
+
+
+
+
+# sources
+> source https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd
+> source https://github.com/containerd/containerd/blob/main/docs/getting-started.md
