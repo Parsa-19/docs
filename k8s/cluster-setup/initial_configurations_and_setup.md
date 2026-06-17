@@ -1,8 +1,11 @@
 # my general idea of the whole thing
 what I went through when decided I need to know how to create cluster:
+### this example scenario:
+create a k8s cluster between three ubuntu nodes using kubeadm. <br>
+network configuration is: <br> 
+two network adapters for each vm (I am implementing this in virtual box) one adapter is NAT (10.0.2.0/24) and one is hostonly (192.168.55.0/24).
 
-
-## network configuratoin 
+## 1. network configuratoin 
 set the ip_forward parameter:
 ```
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
@@ -20,7 +23,7 @@ verify:
 `sysctl net.ipv4.ip_forward`
 
 
-## cgroups configuration
+## 2. cgroups configuration
 cgroups are used to constrain resources that are allocated to processes. Both kubelet and container runtime needs to access system cgroups to enforce resource management for pods and containers. They also have to use the same cgroup driver to work properly.<br>
 there are two cgroup drivers:
 - cgroupfs 
@@ -35,7 +38,7 @@ in systemd the init process generates and consumes the root cgroup and act as cg
 you need to make sure that both kubelet and container runtimes are using the same cgroup driver.
 
 
-## install Container Runtime by downloading binary packages
+## 3. install Container Runtime by downloading binary packages
 you need to download containerd, runc, CNI(Container Netwrok Interface) binaries and install them.
 #### containerd
 > download from https://github.com/containerd/containerd/releases
@@ -99,7 +102,7 @@ sudo systemctl restart containerd
 > When using kubeadm, manually configure the cgroup driver for kubelet.
 
 
-## install kubectl
+## 4. install kubectl
 download the latest binary release with:
 ```
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -125,7 +128,7 @@ kubectl version --client
 ```
 
 
-## install kubeadm and kubelet
+## 5. install kubeadm and kubelet
 least vm requirements:
 - 2G RAM
 - 2 CPU cores
@@ -172,12 +175,80 @@ $ sudo apt-mark hold kubelet kubeadm
 $sudo systemctl enable --now kubelet
 ```
 
+# 7. initialize the control plane
+first set the hostnames for all nodes and also add the ip and hostname of all nodes including master node it self to master node's `/etc/hosts`<br>
+
+in the master node initialize the cluster by this command:
+```
+kubeadm init \
+  --apiserver-advertise-address=192.168.55.110 \
+  --pod-network-cidr=10.244.0.0/16
+```
+- `--apiserver-advertise-address` = specifies the advertise address which is the master node's ip address
+- `--pod-network-cidr` = this specify's the pods network ip which depends on what Pod Network Add-on you use(Flannel in this case) 
+<br>
+the command above will pull the control plane images and initialise the cluster and also guides you to run this sequence:
+```
+$ mkdir -p $HOME/.kube
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+# 8. deploy a pod network add-on
+this will be flannel. deploy flannel:
+```
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+```
 
 
+to confirm the isntallation of the network add-on to cluster, you can check the CoreDNS pod is running in the output of this command:
+```
+kubectl get pods --all-namespaces
+``` 
+
+# join node-1 and node-2 to the cluster
+to add worker nodes simply copy copy the `kubeadm join` command at the end of the output put of your previouse `kubeadm init` command and run it the target worker node you want to join the cluster.<br>
+this is the syntax:
+```
+sudo kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
+```
+example:
+```
+kubeadm join 192.168.55.110:6443 --token csdgbr.s5j1jvbhr3hs20mx \
+        --discovery-token-ca-cert-hash sha256:072d70b1eee7fc86f7180879eca12d89b304680aff7f3d1784e52c78ef8a991c 
+```
+
+if you dont have the token or lost it just run this in master node:
+```
+sudo kubeadm token list
+```
+
+if the token is expired create new:
+```
+sudo kubeadm token create
+```
+
+or more handy:
+```
+sudo kubeadm token create --print-join-command
+```
+
+to get value of `--discovery-token-ca-cert-hash`:
+```
+sudo cat /etc/kubernetes/pki/ca.crt | openssl x509 -pubkey  | openssl rsa -pubin -outform der 2>/dev/null | \
+   openssl dgst -sha256 -hex | sed 's/^.* //'
+```
+
+to confirm the node joined the cluster run this in control plane:
+```
+kubectl get nodes
+```
 
 
-# sources
-> source https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd
-> source https://github.com/containerd/containerd/blob/main/docs/getting-started.md
-> source https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
-> source https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+## sources
+> - source https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd
+> - source https://github.com/containerd/containerd/blob/main/docs/getting-started.md
+> - source https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+> - source https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+> - https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/
+> - https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
