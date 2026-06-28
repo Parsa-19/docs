@@ -209,7 +209,7 @@ $ sudo apt install -y kubelet kubeadm
 # hold these packages from being updated automatically 
 $ sudo apt-mark hold kubelet kubeadm kubectl
 
-$sudo systemctl enable --now kubelet
+$ sudo systemctl enable --now kubelet
 ```
 
 
@@ -240,7 +240,6 @@ this will be flannel. deploy flannel:
 ```
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
 ```
-
 
 to confirm the isntallation of the network add-on to cluster, you can check the CoreDNS pod is running in the output of this command:
 ```
