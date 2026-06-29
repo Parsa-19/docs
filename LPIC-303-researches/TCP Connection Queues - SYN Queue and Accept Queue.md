@@ -64,7 +64,7 @@ at this point the application can recieve client_fd from the client
 
 # related kernel parameter
 ## net.core.somaxconn
-the value of the somaxconn determines the size of *backlog* or *Accept queue*.
+the value of the somaxconn determines the size of *backlog* or *Accept queue* which is the queue for stablished connections.
 
 check its value:
 ```
