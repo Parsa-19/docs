@@ -14,7 +14,7 @@ the application side calls the system call wrappers like `socket()`, `bind()`,`l
 
 
 # consider an example
-steps to show the application and kernel sides when a client tries to create a connection with server:
+steps to show how application and kernel sides work when client tries to connect to server:
 
 ## step1 `socket()`
 the application make the system call to kernel so the kernel creates the socket object.
