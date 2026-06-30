@@ -1,9 +1,3 @@
-ways to see kernel ring buffer
-
-journalctl -b
-dmesg
-/dev/kmsg
-
 # overview of kernel.printk_ratelimit
 
 despite the security risk of exposer of kernel ring buffer logs or kernel module logs if a situation happens that for example a bad kernel module continiously prink() errors and generate logs, disk can fill up and log messages can be overwritten or lost.<br>
