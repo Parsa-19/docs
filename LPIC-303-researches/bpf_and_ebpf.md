@@ -133,6 +133,18 @@ Userspace Reads Event
 Display / Analyze / Store
 ```
 
+## mirigate unprivileged access to ebpf
+do not allow unprivileged users to use ebpf in linux kernel by enabling this kernel parameter:
+```
+echo "kernel.unprivileged_bpf_disabled=1" >> /etc/sysctl.d/bpf_unprivileged_access.conf
+```
+apply:
+```
+sysctl -p /etc/sysctl.d/bpf_unprivileged_access.conf
+```
+
+
+
 > [!NOTICE]
 > for more information on how it works refer to main documentation: `https://ebpf.io/what-is-ebpf/#maps`
 
