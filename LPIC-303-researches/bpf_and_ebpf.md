@@ -145,6 +145,6 @@ sysctl -p /etc/sysctl.d/bpf_unprivileged_access.conf
 
 
 
-> [!NOTICE]
+> [!NOTE]
 > for more information on how it works refer to main documentation: `https://ebpf.io/what-is-ebpf/#maps`
 
