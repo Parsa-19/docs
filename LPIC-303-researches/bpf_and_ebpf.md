@@ -20,6 +20,13 @@ now ebpf (extended bpf) can do a lot more in kernel and is considered as general
 - enforce security policies
 all without writing kernel modules.
 
+> [!NOTICE]
+> projects like **Cilium** uses ebpf that k8s uses this as its network add-on to manage pod network.
+
+### overal use cases
+in performance, observibility, security, Storage.. thats huge!
+
+
 ## ebpf simple examples
 ### example 1: ebpf program that is tracing systemcalls attached to `open()` to open a simple file by any process
 
@@ -70,15 +77,61 @@ Packet C: TCP
 no user-space involvment is needed here.
 
 
-## how does ebpf works and the concepts
+# epft ensures safty (Verifier)
+epbf uses a verifier to ensure the safty of program in kernel. running and arbitrary code inside the kernel would be dangerous. the code could be destructive by purpose or unintentionally.<br>
+for example if you upload:
+```
+while(1){}
+```
+kernek will freeze.
 
-### hook 
+the verifier will check:
+- every loop terminates
+- no invalid pointer access
+- no kernel memory corruption
+- no use of uninitialized values
+- stack limits are respected
+- all execution paths are safe
 
+and reject the code if it is unsafe.
 
-
-
-
-
+## the procedure (what happens)
+```
+Write eBPF Program
+        │
+        ▼
+Compile
+        │
+        ▼
+Load into Kernel
+        │
+        ▼
+Verifier checks it
+        │
+        ▼
+JIT Compiler (optional)
+        │
+        ▼
+Attach to Hook
+        │
+        ▼
+Kernel Event Happens
+        │
+        ▼
+eBPF Program Runs
+        │
+        ▼
+Read/Write Maps
+        │
+        ▼
+Send Event to Userspace
+        │
+        ▼
+Userspace Reads Event
+        │
+        ▼
+Display / Analyze / Store
+```
 
 > [!NOTICE]
 > for more information on how it works refer to main documentation: `https://ebpf.io/what-is-ebpf/#maps`
