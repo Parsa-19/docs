@@ -1,11 +1,11 @@
 # ASLR, KASLR and KARL.<br>
-they are all security techniques to mitigate attacks related to kernel.
+they are all security techniques to mitigate attacks related to memory addresses.
 
 ## ASLR
 ASLR or Address Space Randomization Layout is the security feature built into the OS that randomizes memory location of main system applications/processes, shared librarires, stack and heap memoy space of those applications.<br>
 It prevents attacker to access function's return code of the loaded apps, to be able to load their payload right into the system or even it could be through buffer overflow in which attacker tries to overwrite applications data through overwriting the buffer (maybe aimed to change the function's return code to address to desired malicious code).even if the attacker tries the brute force to find that specific memory address it will cause the process to crash each time it addresses the worng place, and also could cause alert of suspicious activity if SOC teams consider such these things.<br>
 Each time the OS reboots, memory location addressses of processes, stack and heap memory space and shared libraries are relocated at a different randomized location. 
-> [!NOTICE]
+> [!NOTE]
 > Memory addresses are chosen once when a new process is created (specifically during execve()), and they remain fixed for the lifetime of that process.
 
 ### enable and configuration of ASLR
