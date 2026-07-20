@@ -67,6 +67,6 @@ After loading the keymap with `loadkeys`, pressing the configured key combinatio
 > [!IMPORTANT]
 > The SAK action only works on Linux virtual consoles (TTYs). It does **not** operate within graphical desktop sessions (X11 or Wayland), terminal emulators, or SSH sessions.
 
-> [!NOTICE]
+> [!NOTE]
 > Recent versions of systemd (v257 and later) introduced `Ctrl + Alt + Shift + Esc` as a convenient shortcut that invokes the Linux Secure Attention Key on supported systems. This is implemented in user space by systemd and ultimately requests the kernel to perform the SAK operation on the active virtual console.
 
