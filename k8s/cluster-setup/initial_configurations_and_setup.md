@@ -225,7 +225,7 @@ kubeadm init \
 ```
 - `--apiserver-advertise-address` = specifies the advertise address which is the master node's ip address
 - `--pod-network-cidr` = this specify's the pods network ip which depends on what Pod Network Add-on you use(Flannel in this case) 
-<br>
+
 the command above will pull the control plane images and initialise the cluster and also guides you to run this sequence:
 ```
 $ mkdir -p $HOME/.kube
