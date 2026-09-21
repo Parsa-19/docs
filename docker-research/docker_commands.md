@@ -62,4 +62,12 @@ docker system prune -a --volume
 ```
 docker builder prune
 docker system df
+docker context list 
+```
+
+```
+docker volume inspect NAME
+docker image inspect NAME
+docker network inspect NAME
+docker inspect NAME
 ```
