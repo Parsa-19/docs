@@ -17,9 +17,9 @@ CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
 ```
 
 > [!NOTE]
-> save the file by name of "Dockerfile"
-> RUN arguments, runs inside the pulled ubuntu container
-> EXPOSE indicates that the container is listening on port 80 (and doesnt relate to host machine you will specify that later)
+> - save the file by name of "Dockerfile"
+> - RUN arguments, runs inside the pulled ubuntu container
+> - EXPOSE indicates that the container is listening on port 80 (and doesnt relate to host machine you will specify that later)
 
 the procedure will be like:
 Docker-file <--(build)--> docker image <--(run)--> container
