@@ -16,7 +16,7 @@ EXPOSE 80
 CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
 ```
 
-> [!NOTICE]
+> [!NOTE]
 > save the file by name of "Dockerfile"
 > RUN arguments, runs inside the pulled ubuntu container
 > EXPOSE indicates that the container is listening on port 80 (and doesnt relate to host machine you will specify that later)
