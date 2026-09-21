@@ -58,3 +58,8 @@ docker volume rm mysql-data
 docker volume prune
 docker system prune -a --volume
 ```
+
+```
+docker builder prune
+docker system df
+```
