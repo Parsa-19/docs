@@ -1,3 +1,4 @@
+```
 structure:
     # comment
     commands + arguments
@@ -18,7 +19,4 @@ commands:
 definitions + examples:
     FROM : defines base image to use to start the build process
     FROM ubuntu
-
-    
-
-
+```

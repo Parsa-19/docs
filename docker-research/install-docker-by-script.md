@@ -1,3 +1,4 @@
+```
 >>> apt update && apt -y upgrade 
 
 adds the docker repo and installs the docker
@@ -13,6 +14,4 @@ see the all the containers
 
 see currently running containers
 >>> docker ps
-
-
-
+```
